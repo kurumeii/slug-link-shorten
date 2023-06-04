@@ -32,7 +32,7 @@ const config: NextSeoProps = {
   ],
   openGraph: {
     site_name: "slug",
-    url: "https://slug-kurumeii.vercel.app/",
+    url: "https://slug-link-shorten.vercel.app/",
     type: "website",
     locale: "en_IE",
     images: [
