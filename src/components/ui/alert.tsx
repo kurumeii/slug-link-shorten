@@ -11,6 +11,8 @@ const alertVariants = cva(
         default: "bg-background text-foreground",
         destructive:
           "text-destructive border-destructive/50 dark:border-destructive [&>svg]:text-destructive text-destructive",
+        success:
+          "text-success border-success/50 dark:border-success [&>svg]:text-success text-success",
       },
     },
     defaultVariants: {
@@ -25,7 +27,7 @@ const Alert = React.forwardRef<
 >(({ className, variant, ...props }, ref) => (
   <div
     ref={ref}
-    role="alert"
+    role='alert'
     className={cn(alertVariants({ variant }), className)}
     {...props}
   />

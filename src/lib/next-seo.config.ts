@@ -1,8 +1,7 @@
 import { type NextSeoProps } from "next-seo"
 
-const config: NextSeoProps = {
+const nextSeoConfig: NextSeoProps = {
   title: "URL Shortener",
-  titleTemplate: "%s - slug",
   description: "A URL shortener built with T3 Stack",
   defaultTitle: "slug",
   additionalLinkTags: [
@@ -50,4 +49,4 @@ const config: NextSeoProps = {
     cardType: "summary_large_image",
   },
 }
-export default config
+export default nextSeoConfig

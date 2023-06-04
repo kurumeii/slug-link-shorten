@@ -1,4 +1,4 @@
-import { Ring } from "@uiball/loaders"
+import { Ring, Ping, Ripples } from "@uiball/loaders"
 import { type FC } from "react"
 import { cn } from "~/lib/utils"
 
@@ -9,7 +9,7 @@ type LoaderProp = {
   lineWeight?: number
 }
 
-const Loader: FC<LoaderProp> = (props) => {
+export const RingLoader: FC<LoaderProp> = (props) => {
   const { className, size = 22, speed = 2, lineWeight = 3.5 } = props
   return (
     <div className={cn(className)}>
@@ -18,4 +18,19 @@ const Loader: FC<LoaderProp> = (props) => {
   )
 }
 
-export default Loader
+export const PingLoader: FC<LoaderProp> = (props) => {
+  const { className, size = 22, speed = 2 } = props
+  return (
+    <div className={cn(className)}>
+      <Ping size={size} speed={speed} />
+    </div>
+  )
+}
+export const RipplesLoader: FC<LoaderProp> = (props) => {
+  const { className, size = 22, speed = 2 } = props
+  return (
+    <div className={cn(className)}>
+      <Ripples size={size} speed={speed} />
+    </div>
+  )
+}
