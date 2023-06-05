@@ -9,12 +9,17 @@ import { Analytics } from "@vercel/analytics/react"
 import nextSeoConfig from "~/lib/next-seo.config"
 import { ThemeProvider } from "next-themes"
 import { progressbarConfig, themeConfig } from "~/lib/theme"
+import { cn } from "~/lib/utils"
+import { ScrollArea } from "../ui/scroll-area"
+import Layout from "~/layout"
+import Appear from "../framer-motions/Appear"
 
 type Props = PropsWithChildren & {
   session?: Session
+  routerKey?: string
 }
 
-const ProviderWrapper: FC<Props> = ({ session, children }) => {
+const ProviderWrapper: FC<Props> = ({ children, routerKey, session }) => {
   return (
     <SessionProvider session={session}>
       <ThemeProvider {...themeConfig}>
@@ -22,7 +27,20 @@ const ProviderWrapper: FC<Props> = ({ session, children }) => {
         <DefaultSeo {...nextSeoConfig} />
         <Toaster />
         <Analytics />
-        <main className={`${nextFonts} font-sans`}>{children}</main>
+        <ScrollArea className='max-w-screen h-screen'>
+          <Layout>
+            <Appear routerKey={routerKey}>
+              <main
+                className={cn(
+                  nextFonts,
+                  "flex h-full flex-col font-sans antialiased"
+                )}
+              >
+                {children}
+              </main>
+            </Appear>
+          </Layout>
+        </ScrollArea>
       </ThemeProvider>
     </SessionProvider>
   )

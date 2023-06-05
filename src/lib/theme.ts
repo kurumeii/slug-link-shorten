@@ -16,4 +16,5 @@ export const progressbarConfig: NextNProgressProps = {
   showOnShallow: true,
   startPosition: 0.3,
   stopDelayMs: 200,
+  color: "#a21caf",
 }
