@@ -15,7 +15,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model link {
+model Link {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   url         String   @db.String
   slug        String   @unique
@@ -33,7 +33,7 @@ model Account {
   provider                 String
   providerAccountId        String
   refresh_token            String? // @db.Text
-  refresh_token_expires_in Int
+  refresh_token_expires_in Int?
   access_token             String? // @db.Text
   expires_at               Int?
   token_type               String?
@@ -62,7 +62,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  links         link[]
+  links         Link[]
 }
 
 model VerificationToken {

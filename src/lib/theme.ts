@@ -4,7 +4,7 @@ import { type NextNProgressProps } from "nextjs-progressbar"
 export const themeConfig: ThemeProviderProps = {
   storageKey: "slug-theme",
   attribute: "class",
-  disableTransitionOnChange: true,
+  disableTransitionOnChange: false,
   enableColorScheme: true,
   enableSystem: true,
   defaultTheme: "system",
@@ -12,9 +12,12 @@ export const themeConfig: ThemeProviderProps = {
 }
 
 export const progressbarConfig: NextNProgressProps = {
-  height: 5,
+  height: 3,
   showOnShallow: true,
-  startPosition: 0.3,
+  startPosition: 0,
   stopDelayMs: 200,
-  color: "#a21caf",
+  options: {
+    showSpinner: true,
+  },
+  color: "#86198f",
 }

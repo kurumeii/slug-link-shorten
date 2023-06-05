@@ -12,6 +12,7 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
+        username: user.username,
       },
     }),
   },
@@ -20,6 +21,15 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name || profile.login,
+          username: profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        }
+      },
     }),
     /**
      * ...add more providers here.
@@ -31,6 +41,10 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  pages: {
+    signIn: "/signin",
+    error: "/signin",
+  },
 }
 
 /**

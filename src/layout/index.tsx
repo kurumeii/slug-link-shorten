@@ -10,7 +10,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <div className='min-h-auto'>{children}</div>
+      <div className='flex-1'>{children}</div>
       <Footer />
     </>
   )
