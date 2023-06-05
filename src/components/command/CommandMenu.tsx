@@ -20,7 +20,7 @@ const commandData: Array<{
 }> = [
   { title: "Create new", href: "/dashboard/create-new", icon: Icons.plus },
   {
-    title: "To dashboard",
+    title: "Dashboard",
     href: "/dashboard/create-new",
     icon: Icons.dashboard,
   },
@@ -30,17 +30,17 @@ const commandData: Array<{
     icon: Icons.dashboard,
   },
   {
-    title: "To the source code",
+    title: "Repository",
     href: "https://github.com/kurumeii/slug-link-shorten",
     icon: Icons.gitHub,
   },
   {
-    title: "To my twitter page",
+    title: "Twitter",
     href: "https://twitter.com/Kurumeii",
     icon: Icons.twitter,
   },
   {
-    title: "To my facebook page",
+    title: "Facebook",
     href: "https://facebook.com/nguyenphuc.hoanganh98/",
     icon: Icons.facebook,
   },
@@ -74,7 +74,7 @@ const CommandMenu: FC = () => {
           <CommandGroup heading='Links'>
             {commandData.map(({ icon: Icon, title, href }, idx) => (
               <CommandItem key={idx} onSelect={() => void push(href)}>
-                <Icon className='mr-2 h-4 w-4' />
+                <Icon className='mr-4 h-4 w-4' />
                 <span className='capitalize'>{title}</span>
               </CommandItem>
             ))}
@@ -82,15 +82,15 @@ const CommandMenu: FC = () => {
           <CommandSeparator />
           <CommandGroup heading='Settings'>
             <CommandItem onSelect={() => changeTheme("light")}>
-              <Icons.lightThemeIcon className='mr-2 h-4 w-4' />
+              <Icons.lightThemeIcon className='mr-4 h-4 w-4' />
               <span>Set light theme</span>
             </CommandItem>
             <CommandItem onSelect={() => changeTheme("dark")}>
-              <Icons.darkThemeIcon className='mr-2 h-4 w-4' />
+              <Icons.darkThemeIcon className='mr-4 h-4 w-4' />
               <span>Set dark theme</span>
             </CommandItem>
             <CommandItem onSelect={() => changeTheme("system")}>
-              <Icons.systemThemeIcon className='mr-2 h-4 w-4' />
+              <Icons.systemThemeIcon className='mr-4 h-4 w-4' />
               <span>Set theme based on device</span>
             </CommandItem>
           </CommandGroup>

@@ -1,4 +1,6 @@
 import { type GetServerSideProps, type NextPage } from "next"
+import Head from "next/head"
+import DashboardLayout from "~/layout/dashboard"
 import { getServerAuthSession } from "~/server/auth"
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -19,7 +21,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 const DashboardPage: NextPage = () => {
-  return <div>DashboardPage</div>
+  return (
+    <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
+      <DashboardLayout>asdasdasd</DashboardLayout>
+    </>
+  )
 }
 
 export default DashboardPage
