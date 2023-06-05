@@ -1,12 +1,7 @@
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react"
 import { useEffect, useState, type FC } from "react"
+import useCustomTheme from "~/hooks/useCustomTheme"
+import { Icons, type MyIcon } from "../icons/Icons"
+import { Button } from "../ui/button"
 import {
   CommandDialog,
   CommandEmpty,
@@ -15,15 +10,46 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "../ui/command"
-import { Icons } from "../icons/Icons"
-import { Button } from "../ui/button"
-import useCustomTheme from "~/hooks/useCustomTheme"
+import { useRouter } from "next/router"
+
+const commandData: Array<{
+  title: string
+  href: string
+  icon: MyIcon
+}> = [
+  { title: "Create new", href: "/dashboard/create-new", icon: Icons.plus },
+  {
+    title: "To dashboard",
+    href: "/dashboard/create-new",
+    icon: Icons.dashboard,
+  },
+  {
+    title: "Report a bug",
+    href: "https://github.com/kurumeii/slug-link-shorten/issues/new",
+    icon: Icons.dashboard,
+  },
+  {
+    title: "To the source code",
+    href: "https://github.com/kurumeii/slug-link-shorten",
+    icon: Icons.gitHub,
+  },
+  {
+    title: "To my twitter page",
+    href: "https://twitter.com/Kurumeii",
+    icon: Icons.twitter,
+  },
+  {
+    title: "To my facebook page",
+    href: "https://facebook.com/nguyenphuc.hoanganh98/",
+    icon: Icons.facebook,
+  },
+]
 
 const CommandMenu: FC = () => {
   const [open, setOpen] = useState(false)
   const { changeTheme } = useCustomTheme()
+  const { push } = useRouter()
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if ((e?.metaKey || e?.ctrlKey) && e?.key === "k") {
@@ -39,40 +65,19 @@ const CommandMenu: FC = () => {
   return (
     <>
       <Button variant={"ghost"} onClick={() => setOpen(true)}>
-        Command
-        <kbd className='mx-1.5 inline-flex select-none items-center gap-1 rounded border bg-muted px-2 font-mono text-sm text-muted-foreground opacity-100'>
-          <Icons.command className='h-3 w-3' />+ K
-        </kbd>
+        <Icons.command className='h-5 w-5' />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No command found.</CommandEmpty>
           <CommandGroup heading='Links'>
-            <CommandItem>
-              <Icons.plus className='mr-2 h-4 w-4' />
-              <span>Create new</span>
-            </CommandItem>
-            <CommandItem>
-              <Icons.dashboard className='mr-2 h-4 w-4' />
-              <span>To dashboard</span>
-            </CommandItem>
-            <CommandItem>
-              <Icons.bug className='mr-2 h-4 w-4' />
-              <span>Report a bug</span>
-            </CommandItem>
-            <CommandItem>
-              <Icons.gitHub className='mr-2 h-4 w-4' />
-              <span>To the source code</span>
-            </CommandItem>
-            <CommandItem>
-              <Icons.twitter className='mr-2 h-4 w-4' />
-              <span>To my twitter page</span>
-            </CommandItem>
-            <CommandItem>
-              <Icons.facebook className='mr-2 h-4 w-4' />
-              <span>To my facebook page</span>
-            </CommandItem>
+            {commandData.map(({ icon: Icon, title, href }, idx) => (
+              <CommandItem key={idx} onSelect={() => void push(href)}>
+                <Icon className='mr-2 h-4 w-4' />
+                <span className='capitalize'>{title}</span>
+              </CommandItem>
+            ))}
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading='Settings'>

@@ -1,8 +1,6 @@
 import Link from "next/link"
 import { type FC } from "react"
 import { Icons } from "../icons/Icons"
-import { buttonVariants } from "../ui/button"
-import { cn } from "~/lib/utils"
 import ThemeSelect from "../theme-changer/ThemeSelect"
 
 const Footer: FC = () => {
@@ -20,50 +18,6 @@ const Footer: FC = () => {
             </Link>
             <Icons.external className='h-3 w-3' />
           </div>
-        </div>
-        <div className='flex gap-2'>
-          <Link
-            href='https://twitter.com/Kurumeii'
-            rel='noreferrer'
-            target='_blank'
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                rounded: true,
-              }),
-              "h-fit p-2 transition-transform hover:scale-110"
-            )}
-          >
-            <Icons.twitter className='h-5 w-5 ' />
-          </Link>
-          <Link
-            href='https://facebook.com/nguyenphuc.hoanganh98/'
-            rel='noreferrer'
-            target='_blank'
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                rounded: true,
-              }),
-              "h-fit p-2 transition-transform hover:scale-110"
-            )}
-          >
-            <Icons.facebook className='h-5 w-5 ' />
-          </Link>
-          <Link
-            href='https://github.com/kurumeii/slug-link-shorten'
-            rel='noreferrer'
-            target='_blank'
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                rounded: true,
-              }),
-              "h-fit p-2 transition-transform hover:scale-110"
-            )}
-          >
-            <Icons.gitHub className='h-5 w-5' />
-          </Link>
         </div>
       </div>
     </div>

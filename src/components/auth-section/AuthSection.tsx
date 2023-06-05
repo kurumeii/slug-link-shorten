@@ -52,7 +52,7 @@ const AuthSection: FC = () => {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className='text-destructive focus:bg-destructive focus:text-destructive-foreground'
-              onClick={() => void signOut({ callbackUrl: "/signin" })}
+              onClick={() => void signOut({ callbackUrl: "/" })}
             >
               Sign out
               <DropdownMenuShortcut>

@@ -43,8 +43,8 @@ const HomePage: NextPage = () => {
                 })
               )}
             >
-              <Icons.star className='mr-2' />
-              Star on GitHub
+              <Icons.gitHub className='mr-2' />
+              To source code
             </Link>
           </div>
         </SlideUp>
