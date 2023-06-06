@@ -27,7 +27,7 @@ const commandData: Array<{
   {
     title: "Report a bug",
     href: "https://github.com/kurumeii/slug-link-shorten/issues/new",
-    icon: Icons.dashboard,
+    icon: Icons.bug,
   },
   {
     title: "Repository",

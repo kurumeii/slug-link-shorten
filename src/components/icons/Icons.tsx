@@ -1,7 +1,6 @@
 import {
   IconBrandFacebook,
   IconBrandGithub,
-  IconBrandTabler,
   IconBrandTwitter,
   IconDashboard,
   IconHash,
@@ -9,10 +8,12 @@ import {
   IconLoader2,
   IconLogin,
   IconLogout,
+  IconRefresh,
   IconRocket,
   IconSearch,
   IconStar,
   IconSunset2,
+  IconWorldWww,
   type TablerIconsProps,
 } from "@tabler/icons-react"
 import {
@@ -23,12 +24,11 @@ import {
   CloudMoonIcon,
   CommandIcon,
   ExternalLinkIcon,
+  LayoutGridIcon,
   MonitorSmartphoneIcon,
   PlusIcon,
   UserIcon,
   type Icon as LucideIcon,
-  LayoutDashboardIcon,
-  LayoutGridIcon,
 } from "lucide-react"
 import { cn } from "~/lib/utils"
 
@@ -54,11 +54,13 @@ export const Icons = {
   ),
   check: CheckIcon,
   hashtag: IconHash,
-  dashboard: IconBrandTabler,
+  dashboard: IconDashboard,
   command: CommandIcon,
   plus: PlusIcon,
   bug: BugIcon,
   search: IconSearch,
   dashboardLayout: LayoutGridIcon,
   listLayout: IconListDetails,
+  www: IconWorldWww,
+  randomize: IconRefresh,
 }

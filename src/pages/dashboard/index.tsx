@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Icons } from "~/components/icons/Icons"
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { buttonVariants } from "~/components/ui/button"
 import {
   Form,
@@ -14,10 +15,14 @@ import {
   FormMessage,
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
+import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import useGetLink from "~/hooks/useGetLink"
+import { useAppDispatch, useAppSelector } from "~/hooks/useRedux"
 import DashboardLayout from "~/layout/dashboard"
 import { cn } from "~/lib/utils"
 import { LinkSchemas, type FilterLinkInput } from "~/schema/schema"
 import { getServerAuthSession } from "~/server/auth"
+import { setLayout, type Layout } from "~/slices/layoutSlice"
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx)
   if (!session) {
@@ -36,12 +41,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 const DashboardPage: NextPage = () => {
   const searchRef = useRef<HTMLInputElement | null>(null)
+  const { mode } = useAppSelector((s) => s.layout)
+  const dispatch = useAppDispatch()
+
   const form = useForm<FilterLinkInput>({
     resolver: zodResolver(LinkSchemas.filterLink),
     defaultValues: {
       filter: "",
     },
   })
+  const getLink = useGetLink(form.getValues("filter"))
 
   const onSubmitFn = (data: FilterLinkInput) => {
     console.log(JSON.stringify(data, null, 2))
@@ -59,6 +68,25 @@ const DashboardPage: NextPage = () => {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedLayoutMode = localStorage.getItem("layout-mode")
+      if (savedLayoutMode) {
+        dispatch(setLayout({ mode: savedLayoutMode as Layout["mode"] }))
+      }
+    }
+  }, [dispatch])
+
+  if (getLink.error) {
+    return (
+      <div className='container w-full px-5'>
+        <Alert variant={"destructive"}>
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{getLink.error.message}</AlertDescription>
+        </Alert>
+      </div>
+    )
+  }
   return (
     <>
       <Head>
@@ -84,6 +112,7 @@ const DashboardPage: NextPage = () => {
                           type='text'
                           placeholder='Search for links'
                           className='py-2 pl-10 pr-3'
+                          autoComplete='off'
                           {...field}
                           ref={(el) => {
                             field.ref(el)
@@ -106,19 +135,40 @@ const DashboardPage: NextPage = () => {
               />
             </form>
           </Form>
-          <div className='grid grid-cols-2 gap-2 rounded-sm bg-muted px-2 py-3'>
-            <div className='rounded-lg bg-secondary text-secondary-foreground'>
-              <Icons.dashboardLayout className='h-5 w-5' />
-            </div>
-            <div className='rounded-lg bg-secondary text-secondary-foreground'>
-              <Icons.listLayout className='h-5 w-5' />
-            </div>
-          </div>
+          <Tabs
+            value={mode}
+            onValueChange={(val) => {
+              dispatch(setLayout({ mode: val as Layout["mode"] }))
+            }}
+          >
+            <TabsList>
+              <TabsTrigger value='Dashboard'>
+                <Icons.dashboardLayout className='h-5 w-5' />
+              </TabsTrigger>
+              <TabsTrigger value='List'>
+                <Icons.listLayout className='h-5 w-5' />
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
           <Link href='/dashboard/create-new' className={cn(buttonVariants())}>
             <Icons.plus className='mr-2' />
             Create new link
           </Link>
         </div>
+        {getLink.isLoading && (
+          <div className='mt-8 flex flex-col items-center justify-center'>
+            <p className='mb-2'>Loading your links...</p>
+            <Icons.loader />
+          </div>
+        )}
+        {getLink.data?.links?.length === 0 && (
+          <>
+            <div className='flex flex-col items-center justify-center'>
+              <Icons.rocket className='h-28 w-28 text-muted-foreground' />
+              <p className='mb-4 text-xl'>It&apos;s empty for now</p>
+            </div>
+          </>
+        )}
       </DashboardLayout>
     </>
   )
