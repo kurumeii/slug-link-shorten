@@ -50,7 +50,7 @@ export const Icons = {
   lightThemeIcon: IconSunset2,
   systemThemeIcon: MonitorSmartphoneIcon,
   loader: (props: TablerIconsProps) => (
-    <IconLoader2 className={cn(props.className, "animate-spin")} {...props} />
+    <IconLoader2 {...props} className={cn(props.className, "animate-spin")} />
   ),
   check: CheckIcon,
   hashtag: IconHash,

@@ -36,7 +36,7 @@ const ThemeSelect: FC = () => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='start' sideOffset={20}>
+      <DropdownMenuContent align='end' sideOffset={20}>
         <DropdownMenuItem onClick={() => changeTheme("light")}>
           <Icons.lightThemeIcon className='mr-2 h-4 w-4' />
           <span>Light</span>
