@@ -8,7 +8,6 @@ import {
   IconLoader2,
   IconLogin,
   IconLogout,
-  IconRefresh,
   IconRocket,
   IconSearch,
   IconStar,
@@ -23,6 +22,7 @@ import {
   ChevronUpIcon,
   CloudMoonIcon,
   CommandIcon,
+  Dice4Icon,
   ExternalLinkIcon,
   LayoutGridIcon,
   MonitorSmartphoneIcon,
@@ -62,5 +62,5 @@ export const Icons = {
   dashboardLayout: LayoutGridIcon,
   listLayout: IconListDetails,
   www: IconWorldWww,
-  randomize: IconRefresh,
+  randomize: Dice4Icon,
 }

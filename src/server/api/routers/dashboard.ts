@@ -23,6 +23,13 @@ export const dashboardRouter = createTRPCRouter({
                   ]
                 : undefined,
           },
+          select: {
+            creatorId: true,
+            description: true,
+            id: true,
+            slug: true,
+            url: true,
+          },
         })
         if (!links)
           throw new TRPCError({

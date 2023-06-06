@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Icons } from "~/components/icons/Icons"
+import SlugData from "~/components/slug-data/SlugData"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { buttonVariants } from "~/components/ui/button"
 import {
@@ -23,6 +24,7 @@ import { cn } from "~/lib/utils"
 import { LinkSchemas, type FilterLinkInput } from "~/schema/schema"
 import { getServerAuthSession } from "~/server/auth"
 import { setLayout, type Layout } from "~/slices/layoutSlice"
+import { setSlugData } from "~/slices/slugSlice"
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx)
   if (!session) {
@@ -76,6 +78,14 @@ const DashboardPage: NextPage = () => {
       }
     }
   }, [dispatch])
+
+  if (getLink.isSuccess) {
+    dispatch(
+      setSlugData({
+        slugData: getLink.data.links,
+      })
+    )
+  }
 
   if (getLink.error) {
     return (
@@ -161,13 +171,13 @@ const DashboardPage: NextPage = () => {
             <Icons.loader />
           </div>
         )}
-        {getLink.data?.links?.length === 0 && (
-          <>
-            <div className='flex flex-col items-center justify-center'>
-              <Icons.rocket className='h-20 w-20 text-muted-foreground' />
-              <p className='mb-4 text-xl'>It&apos;s empty for now</p>
-            </div>
-          </>
+        {getLink.data?.links?.length === 0 ? (
+          <div className='flex flex-col items-center justify-center'>
+            <Icons.rocket className='h-20 w-20 text-muted-foreground' />
+            <p className='mb-4 text-xl'>It&apos;s empty for now</p>
+          </div>
+        ) : (
+          <SlugData />
         )}
       </DashboardLayout>
     </>

@@ -3,18 +3,18 @@ import { z } from "zod"
 export const LinkSchemas = {
   link: z.object({
     id: z.number(),
-    url: z.string(),
-    slug: z.string(),
+    url: z.string().url({ message: "Not a valid link" }),
+    slug: z.string().min(3, { message: "Too short, minimum 3 chars" }),
     description: z.string(),
   }),
   createLink: z.object({
-    url: z.string(),
-    slug: z.string(),
+    url: z.string().url({ message: "Not a valid link" }),
+    slug: z.string().min(3, { message: "Too short, minimum 3 chars" }),
     description: z.string(),
   }),
   editLink: z.object({
-    url: z.string(),
-    slug: z.string(),
+    url: z.string().url({ message: "Not a valid link" }),
+    slug: z.string().min(3, { message: "Too short, minimum 3 chars" }),
     description: z.string(),
   }),
   filterLink: z.object({
