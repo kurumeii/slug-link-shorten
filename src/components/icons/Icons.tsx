@@ -3,27 +3,32 @@ import {
   IconBrandGithub,
   IconBrandTabler,
   IconBrandTwitter,
+  IconDashboard,
   IconHash,
+  IconListDetails,
   IconLoader2,
   IconLogin,
   IconLogout,
   IconRocket,
+  IconSearch,
   IconStar,
   IconSunset2,
   type TablerIconsProps,
 } from "@tabler/icons-react"
 import {
+  BugIcon,
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   CloudMoonIcon,
+  CommandIcon,
   ExternalLinkIcon,
   MonitorSmartphoneIcon,
+  PlusIcon,
   UserIcon,
   type Icon as LucideIcon,
-  CommandIcon,
-  PlusIcon,
-  BugIcon,
+  LayoutDashboardIcon,
+  LayoutGridIcon,
 } from "lucide-react"
 import { cn } from "~/lib/utils"
 
@@ -53,4 +58,7 @@ export const Icons = {
   command: CommandIcon,
   plus: PlusIcon,
   bug: BugIcon,
+  search: IconSearch,
+  dashboardLayout: LayoutGridIcon,
+  listLayout: IconListDetails,
 }

@@ -5,8 +5,8 @@ import ThemeSelect from "../theme-changer/ThemeSelect"
 
 const Footer: FC = () => {
   return (
-    <div className='fixed bottom-0 mb-6 mt-6 w-full text-muted-foreground'>
-      <div className='container mx-auto flex items-center justify-between'>
+    <div className='fixed bottom-0 my-6 w-full px-3 text-muted-foreground'>
+      <div className='container mx-auto flex flex-row-reverse items-center justify-between'>
         <div className='flex items-center space-x-1'>
           <ThemeSelect />
         </div>

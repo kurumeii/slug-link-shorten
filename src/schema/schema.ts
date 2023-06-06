@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const LinkSchemas = {
+export const LinkSchemas = {
   link: z.object({
     id: z.number(),
     url: z.string(),
@@ -25,7 +25,7 @@ const LinkSchemas = {
   }),
 }
 
-export type LinkSchema = z.TypeOf<(typeof LinkSchemas)["link"]>
-export type CreateLinkInput = z.TypeOf<(typeof LinkSchemas)["createLink"]>
-export type EditLinkInput = z.TypeOf<(typeof LinkSchemas)["editLink"]>
-export type FilterLinkInput = z.TypeOf<(typeof LinkSchemas)["filterLink"]>
+export type LinkSchema = z.infer<(typeof LinkSchemas)["link"]>
+export type CreateLinkInput = z.infer<(typeof LinkSchemas)["createLink"]>
+export type EditLinkInput = z.infer<(typeof LinkSchemas)["editLink"]>
+export type FilterLinkInput = z.infer<(typeof LinkSchemas)["filterLink"]>
