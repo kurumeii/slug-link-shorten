@@ -10,6 +10,7 @@ export default function useGetLink(filter: FilterLinkInput["filter"]) {
     },
     {
       enabled: status === "authenticated",
+      staleTime: 20 * 1000,
     }
   )
 }

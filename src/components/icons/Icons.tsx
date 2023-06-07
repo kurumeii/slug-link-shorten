@@ -1,3 +1,4 @@
+import { IconMoodEmpty } from "@tabler/icons-react"
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -75,4 +76,5 @@ export const Icons = {
   options: IconDots,
   edit: IconEdit,
   delete: IconTrash,
+  empty: IconMoodEmpty,
 }

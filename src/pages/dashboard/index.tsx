@@ -173,7 +173,7 @@ const DashboardPage: NextPage = () => {
         )}
         {getLink.data?.links?.length === 0 ? (
           <div className='flex flex-col items-center justify-center'>
-            <Icons.rocket className='h-20 w-20 text-muted-foreground' />
+            <Icons.empty className='h-20 w-20 text-muted-foreground' />
             <p className='mb-4 text-xl'>It&apos;s empty for now</p>
           </div>
         ) : (
