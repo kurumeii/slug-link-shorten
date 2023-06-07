@@ -7,6 +7,17 @@ export const slugRouter = createTRPCRouter({
     .input(LinkSchemas.createLink)
     .mutation(async ({ ctx, input }) => {
       try {
+        const findExistSlug = await ctx.prisma.link.count({
+          where: {
+            slug: input.slug,
+          },
+        })
+        if (findExistSlug > 0)
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message:
+              "Slug already exists. Please try another one or click 'Randomize' button.",
+          })
         return await ctx.prisma.link.create({
           data: {
             slug: input.slug,

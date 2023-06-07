@@ -4,17 +4,29 @@ export const LinkSchemas = {
   link: z.object({
     id: z.number(),
     url: z.string().url({ message: "Not a valid link" }),
-    slug: z.string().min(3, { message: "Too short, minimum 3 chars" }),
+    slug: z
+      .string()
+      .min(3, { message: "Too short, minimum 3 chars" })
+      .regex(/^[a-zA-Z0-9_-]+$/i, {
+        message:
+          "Please enter a valid string without blank space or special characters",
+      }),
     description: z.string(),
   }),
   createLink: z.object({
     url: z.string().url({ message: "Not a valid link" }),
-    slug: z.string().min(3, { message: "Too short, minimum 3 chars" }),
+    slug: z
+      .string()
+      .min(3, { message: "Too short, minimum 3 chars" })
+      .regex(/^[a-zA-Z0-9_-]+$/i, {
+        message:
+          "Please enter a valid string without blank space or special characters",
+      }),
     description: z.string(),
   }),
   editLink: z.object({
     url: z.string().url({ message: "Not a valid link" }),
-    slug: z.string().min(3, { message: "Too short, minimum 3 chars" }),
+    slug: z.string(),
     description: z.string(),
   }),
   filterLink: z.object({

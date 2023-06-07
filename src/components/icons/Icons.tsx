@@ -2,6 +2,8 @@ import {
   IconBrandFacebook,
   IconBrandGithub,
   IconBrandTwitter,
+  IconChevronLeft,
+  IconChevronRight,
   IconDashboard,
   IconHash,
   IconListDetails,
@@ -63,4 +65,6 @@ export const Icons = {
   listLayout: IconListDetails,
   www: IconWorldWww,
   randomize: Dice4Icon,
+  chevronRight: IconChevronRight,
+  chevronLeft: IconChevronLeft,
 }

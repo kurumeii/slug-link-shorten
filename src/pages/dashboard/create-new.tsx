@@ -4,6 +4,7 @@ import { type GetServerSideProps, type NextPage } from "next"
 import Head from "next/head"
 import { useForm } from "react-hook-form"
 import { Icons } from "~/components/icons/Icons"
+import PaginationHead from "~/components/pagination-head/PaginationHead"
 import { Button } from "~/components/ui/button"
 import {
   Form,
@@ -76,6 +77,13 @@ const CreateNewPage: NextPage = () => {
         <title>Create new slug</title>
       </Head>
       <div className='mx-auto w-full max-w-2xl px-4'>
+        <PaginationHead
+          pages={[
+            { title: "dashboard", url: "/dashboard" },
+            { title: "create-new" },
+          ]}
+        />
+        <br />
         <Form {...form}>
           <form
             noValidate
@@ -99,7 +107,7 @@ const CreateNewPage: NextPage = () => {
                         {...field}
                       />
                       <span className='absolute inset-y-0 left-0 flex items-center justify-center pl-3 pr-2'>
-                        <Icons.www className='h-5 w-5' stroke={1} />
+                        <Icons.www className='h-5 w-5' stroke={1.5} />
                       </span>
                     </div>
                   </FormControl>
@@ -168,7 +176,7 @@ const CreateNewPage: NextPage = () => {
                 disabled={createSlug.isLoading}
               >
                 {createSlug.isLoading ? (
-                  <Icons.loader />
+                  <Icons.loader className='mr-2' />
                 ) : (
                   <Icons.rocket className='mr-2 h-5 w-5' />
                 )}
