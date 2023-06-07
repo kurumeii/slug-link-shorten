@@ -10,9 +10,11 @@ const SlugPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Slug id {slugId}</title>
+        <title>Slug link</title>
       </Head>
-      <DashboardLayout>asdasdsad</DashboardLayout>
+      <div className='container flex w-full flex-1 items-center'>
+        Slug id: {slugId}
+      </div>
     </>
   )
 }

@@ -16,7 +16,7 @@ export default function useCreateSlug() {
           <div>
             Link has created successfully, go check this out
             <Link
-              href={cn("/slug/", id)}
+              href={`/slug/${id}`}
               className={cn(
                 buttonVariants({
                   variant: "link",

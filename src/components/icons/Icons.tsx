@@ -4,7 +4,10 @@ import {
   IconBrandTwitter,
   IconChevronLeft,
   IconChevronRight,
+  IconClipboard,
   IconDashboard,
+  IconDots,
+  IconEdit,
   IconHash,
   IconListDetails,
   IconLoader2,
@@ -14,6 +17,7 @@ import {
   IconSearch,
   IconStar,
   IconSunset2,
+  IconTrash,
   IconWorldWww,
   type TablerIconsProps,
 } from "@tabler/icons-react"
@@ -67,4 +71,8 @@ export const Icons = {
   randomize: Dice4Icon,
   chevronRight: IconChevronRight,
   chevronLeft: IconChevronLeft,
+  clipboard: IconClipboard,
+  options: IconDots,
+  edit: IconEdit,
+  delete: IconTrash,
 }
