@@ -121,6 +121,7 @@ const DashboardData: FC = () => {
                       </DropdownMenu>
                       <EditSlugModal toggleModal={toggleModal} />
                       <DeleteSlugModal
+                        modalState={modalStates.delete}
                         toggleModal={toggleModal}
                         slugId={sd.id}
                       />

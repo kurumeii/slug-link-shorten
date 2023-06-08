@@ -35,9 +35,13 @@ export const LinkSchemas = {
   getSingleLink: z.object({
     slugId: z.string(),
   }),
+  deleteSlug: z.object({
+    slug: z.string().min(1, { message: "Please type the code below" }),
+  }),
 }
 
 export type LinkSchema = z.infer<(typeof LinkSchemas)["link"]>
 export type CreateLinkInput = z.infer<(typeof LinkSchemas)["createLink"]>
 export type EditLinkInput = z.infer<(typeof LinkSchemas)["editLink"]>
 export type FilterLinkInput = z.infer<(typeof LinkSchemas)["filterLink"]>
+export type DeleteSlug = z.infer<(typeof LinkSchemas)["deleteSlug"]>

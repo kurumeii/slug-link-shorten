@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { nanoid } from "@reduxjs/toolkit"
 import { useEffect, useState, type FC } from "react"
 import { useForm } from "react-hook-form"
-import { type z } from "zod"
-import { LinkSchemas } from "~/schema/schema"
+import useDeleteSlug from "~/hooks/useDeleteSlug"
+import { type DeleteSlug, LinkSchemas } from "~/schema/schema"
 import { type ToggleModal } from "~/types"
 import { Icons } from "../icons/Icons"
 import {
@@ -16,21 +16,18 @@ import {
 import { Button } from "../ui/button"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form"
 import { Input } from "../ui/input"
-import useDeleteSlug from "~/hooks/useDeleteSlug"
-
-const slugZodchema = LinkSchemas.link.pick({ slug: true })
-type SlugSchemas = z.infer<typeof slugZodchema>
 
 type Props = {
+  modalState: boolean
   toggleModal: ToggleModal
   slugId: string
 }
 
-const DeleteSlugModal: FC<Props> = ({ toggleModal, slugId }) => {
+const DeleteSlugModal: FC<Props> = ({ modalState, toggleModal, slugId }) => {
   const [random, setRandom] = useState("")
   const deleteSlug = useDeleteSlug()
-  const form = useForm<SlugSchemas>({
-    resolver: zodResolver(slugZodchema),
+  const form = useForm<DeleteSlug>({
+    resolver: zodResolver(LinkSchemas.deleteSlug),
     defaultValues: {
       slug: "",
     },
@@ -38,9 +35,13 @@ const DeleteSlugModal: FC<Props> = ({ toggleModal, slugId }) => {
   useEffect(() => {
     const randomize = nanoid(5)
     setRandom(randomize)
-  }, [])
+  }, [modalState])
 
-  const onSubmitFn = (data: SlugSchemas) => {
+  useEffect(() => {
+    form.clearErrors("slug")
+  }, [form, modalState])
+
+  const onSubmitFn = (data: DeleteSlug) => {
     if (data.slug !== random) {
       form.setError("slug", {
         message: "Does not match, please check again",
