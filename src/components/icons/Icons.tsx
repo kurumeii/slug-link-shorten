@@ -36,6 +36,7 @@ import {
   PlusIcon,
   UserIcon,
   type Icon as LucideIcon,
+  PartyPopperIcon,
 } from "lucide-react"
 import { cn } from "~/lib/utils"
 
@@ -77,4 +78,5 @@ export const Icons = {
   edit: IconEdit,
   delete: IconTrash,
   empty: IconMoodEmpty,
+  congratz: PartyPopperIcon,
 }

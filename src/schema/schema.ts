@@ -33,7 +33,7 @@ export const LinkSchemas = {
     filter: z.string(),
   }),
   getSingleLink: z.object({
-    linkId: z.number(),
+    slugId: z.string(),
   }),
 }
 

@@ -9,6 +9,13 @@ export default function useCreateSlug() {
   const { toast } = useToast()
   const { push } = useRouter()
   return api.slug.createSlug.useMutation({
+    onError: () =>
+      toast({
+        title: "Error",
+        description:
+          "Slug already exists. Please try another one or click 'Randomize' button.",
+        variant: "destructive",
+      }),
     onSuccess: ({ id }) => {
       toast({
         title: "Successful",
