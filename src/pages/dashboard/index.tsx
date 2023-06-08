@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { Icons } from "~/components/icons/Icons"
-import SlugData from "~/components/slug-data/SlugData"
+import DashboardData from "~/components/slug-data/DashboardData"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { buttonVariants } from "~/components/ui/button"
 import {
@@ -16,15 +16,11 @@ import {
   FormMessage,
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
-import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import useGetLink from "~/hooks/useGetLink"
-import { useAppDispatch, useAppSelector } from "~/hooks/useRedux"
 import DashboardLayout from "~/layout/dashboard"
 import { cn } from "~/lib/utils"
 import { LinkSchemas, type FilterLinkInput } from "~/schema/schema"
 import { getServerAuthSession } from "~/server/auth"
-import { setLayout, type Layout } from "~/slices/layoutSlice"
-import { setSlugData } from "~/slices/slugSlice"
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx)
   if (!session) {
@@ -43,8 +39,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 const DashboardPage: NextPage = () => {
   const searchRef = useRef<HTMLInputElement | null>(null)
-  const { mode } = useAppSelector((s) => s.layout)
-  const dispatch = useAppDispatch()
 
   const form = useForm<FilterLinkInput>({
     resolver: zodResolver(LinkSchemas.filterLink),
@@ -70,23 +64,6 @@ const DashboardPage: NextPage = () => {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedLayoutMode = localStorage.getItem("layout-mode")
-      if (savedLayoutMode) {
-        dispatch(setLayout({ mode: savedLayoutMode as Layout["mode"] }))
-      }
-    }
-  }, [dispatch])
-
-  if (getLink.isSuccess) {
-    dispatch(
-      setSlugData({
-        slugData: getLink.data.links,
-      })
-    )
-  }
-
   if (getLink.error) {
     return (
       <div className='container w-full px-5'>
@@ -97,18 +74,19 @@ const DashboardPage: NextPage = () => {
       </div>
     )
   }
+
   return (
     <>
       <Head>
         <title>Dashboard</title>
       </Head>
       <DashboardLayout>
-        <div className='container my-3 flex flex-row items-center gap-x-3'>
+        <div className='container my-3 flex flex-col gap-3 md:flex-row md:items-center'>
           <Form {...form}>
             <form
               noValidate
               onSubmit={(event) => void form.handleSubmit(onSubmitFn)(event)}
-              className='flex-1'
+              className='min-w-fit flex-1'
             >
               <FormField
                 name='filter'
@@ -116,7 +94,7 @@ const DashboardPage: NextPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className='relative inline-flex w-full'>
+                      <div className='relative inline-flex w-full '>
                         <Input
                           id='search'
                           type='text'
@@ -145,22 +123,14 @@ const DashboardPage: NextPage = () => {
               />
             </form>
           </Form>
-          <Tabs
-            value={mode}
-            onValueChange={(val) => {
-              dispatch(setLayout({ mode: val as Layout["mode"] }))
-            }}
+          <Link
+            href='/dashboard/create-new'
+            className={cn(
+              buttonVariants({
+                variant: "secondary",
+              })
+            )}
           >
-            <TabsList>
-              <TabsTrigger value='Dashboard'>
-                <Icons.dashboardLayout className='h-5 w-5' />
-              </TabsTrigger>
-              <TabsTrigger value='List'>
-                <Icons.listLayout className='h-5 w-5' />
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-          <Link href='/dashboard/create-new' className={cn(buttonVariants())}>
             <Icons.plus className='mr-2' />
             Create new link
           </Link>
@@ -177,7 +147,7 @@ const DashboardPage: NextPage = () => {
             <p className='mb-4 text-xl'>It&apos;s kinda empty</p>
           </div>
         ) : (
-          <SlugData />
+          <DashboardData />
         )}
       </DashboardLayout>
     </>

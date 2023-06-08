@@ -25,8 +25,8 @@ export const LinkSchemas = {
     description: z.string(),
   }),
   editLink: z.object({
+    slugId: z.string(),
     url: z.string().url({ message: "Not a valid link" }),
-    slug: z.string(),
     description: z.string(),
   }),
   filterLink: z.object({

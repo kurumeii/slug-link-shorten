@@ -29,6 +29,7 @@ const DashboardData: FC = () => {
   const { slugData } = useAppSelector((s) => s.slugs)
   const { toast } = useToast()
   const { push } = useRouter()
+  const [slugId, setSlugId] = useState("")
   const [modalStates, setModalStates] = useState({
     delete: false,
     edit: false,
@@ -65,29 +66,26 @@ const DashboardData: FC = () => {
   return (
     <>
       <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
-        {slugData.map((sd) => (
-          <Appear key={sd.id}>
-            <Card className='h-full'>
-              <CardHeader>
-                <CardTitle className='inline-flex items-center justify-between gap-2'>
-                  <span
-                    className='cursor-pointer'
-                    onClick={() => void copyToClipboard(sd.slug)}
-                  >
-                    /s/{sd.slug}
-                  </span>
-                  <AlertDialog
-                    open={modalStates.delete}
-                    onOpenChange={(state) =>
-                      toggleModal({ modalType: "delete", state })
-                    }
-                  >
-                    <Dialog
-                      open={modalStates.edit}
-                      onOpenChange={(state) =>
-                        toggleModal({ modalType: "edit", state })
-                      }
-                    >
+        <AlertDialog
+          open={modalStates.delete}
+          onOpenChange={(state) => toggleModal({ modalType: "delete", state })}
+        >
+          <Dialog
+            open={modalStates.edit}
+            onOpenChange={(state) => toggleModal({ modalType: "edit", state })}
+          >
+            {slugData.map((sd) => (
+              <Appear key={sd.id}>
+                <Card className='h-full'>
+                  <CardHeader>
+                    <CardTitle className='inline-flex items-center justify-between gap-2'>
+                      <span
+                        className='cursor-pointer'
+                        onClick={() => void copyToClipboard(sd.slug)}
+                      >
+                        /s/{sd.slug}
+                      </span>
+
                       <DropdownMenu>
                         <DropdownMenuTrigger>
                           <Icons.options />
@@ -101,7 +99,10 @@ const DashboardData: FC = () => {
                               <Icons.external className='ml-2 h-4 w-4' />
                             </DropdownMenuShortcut>
                           </DropdownMenuItem>
-                          <DialogTrigger asChild>
+                          <DialogTrigger
+                            asChild
+                            onClick={() => setSlugId(sd.id)}
+                          >
                             <DropdownMenuItem>
                               Edit
                               <DropdownMenuShortcut>
@@ -109,7 +110,10 @@ const DashboardData: FC = () => {
                               </DropdownMenuShortcut>
                             </DropdownMenuItem>
                           </DialogTrigger>
-                          <AlertDialogTrigger asChild>
+                          <AlertDialogTrigger
+                            asChild
+                            onClick={() => setSlugId(sd.id)}
+                          >
                             <DropdownMenuItem className='text-destructive focus:bg-destructive focus:text-destructive-foreground'>
                               Delete
                               <DropdownMenuShortcut>
@@ -119,21 +123,27 @@ const DashboardData: FC = () => {
                           </AlertDialogTrigger>
                         </DropdownMenuContent>
                       </DropdownMenu>
-                      <EditSlugModal toggleModal={toggleModal} />
-                      <DeleteSlugModal
-                        modalState={modalStates.delete}
-                        toggleModal={toggleModal}
-                        slugId={sd.id}
-                      />
-                    </Dialog>
-                  </AlertDialog>
-                </CardTitle>
-                <CardDescription className='truncate'>{sd.url}</CardDescription>
-              </CardHeader>
-              <CardFooter>{sd.description}</CardFooter>
-            </Card>
-          </Appear>
-        ))}
+                    </CardTitle>
+                    <CardDescription className='truncate'>
+                      {sd.url}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter>{sd.description}</CardFooter>
+                </Card>
+              </Appear>
+            ))}
+            <EditSlugModal
+              modalState={modalStates.edit}
+              toggleModal={toggleModal}
+              slugId={slugId}
+            />
+            <DeleteSlugModal
+              modalState={modalStates.delete}
+              toggleModal={toggleModal}
+              slugId={slugId}
+            />
+          </Dialog>
+        </AlertDialog>
       </div>
     </>
   )

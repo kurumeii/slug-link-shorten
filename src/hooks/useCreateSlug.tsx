@@ -5,10 +5,12 @@ import { ToastAction } from "~/components/ui/toast"
 import { useToast } from "~/components/ui/use-toast"
 import { cn } from "~/lib/utils"
 import { api } from "~/utils/api"
+import useGetLink from "./useGetLink"
 
 export default function useCreateSlug() {
   const { toast } = useToast()
   const { push } = useRouter()
+  const { refetch } = useGetLink("")
   return api.slug.createSlug.useMutation({
     onError: () =>
       toast({
@@ -17,7 +19,7 @@ export default function useCreateSlug() {
           "Slug already exists. Please try another one or click 'Randomize' button.",
         variant: "destructive",
       }),
-    onSuccess: ({ id }) => {
+    onSuccess: async ({ id }) => {
       toast({
         title: "Successful",
         description: "Link has created successfully, go check this out",
@@ -32,7 +34,8 @@ export default function useCreateSlug() {
         variant: "success",
         duration: 10 * 1000,
       })
-      void push("/dashboard")
+      await refetch()
+      await push("/dashboard")
     },
   })
 }

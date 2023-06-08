@@ -38,4 +38,24 @@ export const slugRouter = createTRPCRouter({
         })
       }
     }),
+  editSlug: protectedProcedure
+    .input(LinkSchemas.editLink)
+    .mutation(async ({ ctx, input }) => {
+      try {
+        return await ctx.prisma.link.update({
+          where: {
+            id: input.slugId,
+          },
+          data: {
+            url: input.url,
+            description: input.description,
+          },
+        })
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: error as string,
+        })
+      }
+    }),
 })
