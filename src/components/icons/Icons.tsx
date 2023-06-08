@@ -1,4 +1,3 @@
-import { IconMoodEmpty } from "@tabler/icons-react"
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -14,6 +13,7 @@ import {
   IconLoader2,
   IconLogin,
   IconLogout,
+  IconMoodSad,
   IconRocket,
   IconSearch,
   IconStar,
@@ -33,10 +33,10 @@ import {
   ExternalLinkIcon,
   LayoutGridIcon,
   MonitorSmartphoneIcon,
+  PartyPopperIcon,
   PlusIcon,
   UserIcon,
   type Icon as LucideIcon,
-  PartyPopperIcon,
 } from "lucide-react"
 import { cn } from "~/lib/utils"
 
@@ -77,6 +77,6 @@ export const Icons = {
   options: IconDots,
   edit: IconEdit,
   delete: IconTrash,
-  empty: IconMoodEmpty,
+  empty: IconMoodSad,
   congratz: PartyPopperIcon,
 }

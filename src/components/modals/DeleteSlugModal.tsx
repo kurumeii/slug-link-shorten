@@ -39,6 +39,7 @@ const DeleteSlugModal: FC<Props> = ({ modalState, toggleModal, slugId }) => {
 
   useEffect(() => {
     form.clearErrors("slug")
+    form.setValue("slug", "")
   }, [form, modalState])
 
   const onSubmitFn = (data: DeleteSlug) => {
@@ -92,9 +93,22 @@ const DeleteSlugModal: FC<Props> = ({ modalState, toggleModal, slugId }) => {
             />
             <div className='flex w-full flex-1 items-center justify-end gap-2'>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <Button variant='destructive' type='submit'>
-                <Icons.delete className='mr-2 h-5 w-5' />
-                Delete link
+              <Button
+                variant='destructive'
+                type='submit'
+                disabled={deleteSlug.isLoading}
+              >
+                {deleteSlug.isLoading ? (
+                  <>
+                    <Icons.loader className='mr-2' />
+                    Deleting your link
+                  </>
+                ) : (
+                  <>
+                    <Icons.delete className='mr-2 h-5 w-5' />
+                    Delete link
+                  </>
+                )}
               </Button>
             </div>
           </form>

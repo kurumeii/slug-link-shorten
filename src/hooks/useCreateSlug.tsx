@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { buttonVariants } from "~/components/ui/button"
+import { ToastAction } from "~/components/ui/toast"
 import { useToast } from "~/components/ui/use-toast"
 import { cn } from "~/lib/utils"
 import { api } from "~/utils/api"
@@ -19,22 +20,17 @@ export default function useCreateSlug() {
     onSuccess: ({ id }) => {
       toast({
         title: "Successful",
-        description: (
-          <div>
-            Link has created successfully, go check this out
-            <Link
-              href={`/slug/${id}`}
-              className={cn(
-                buttonVariants({
-                  variant: "link",
-                })
-              )}
-            >
-              Let&apos;s go
-            </Link>
-          </div>
+        description: "Link has created successfully, go check this out",
+        action: (
+          <ToastAction
+            altText="Let's go"
+            onClick={() => void push(`/slug/${id}`)}
+          >
+            Let&apos;s go
+          </ToastAction>
         ),
         variant: "success",
+        duration: 10 * 1000,
       })
       void push("/dashboard")
     },

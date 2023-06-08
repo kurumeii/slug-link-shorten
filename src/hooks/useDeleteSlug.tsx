@@ -13,6 +13,11 @@ export default function useDeleteSlug() {
         variant: "destructive",
       }),
     onSuccess: async () => {
+      toast({
+        title: "Successful",
+        description: "Link deleted successfully",
+        variant: "success",
+      })
       await refetch()
     },
   })

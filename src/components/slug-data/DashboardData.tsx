@@ -67,7 +67,7 @@ const DashboardData: FC = () => {
       <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
         {slugData.map((sd) => (
           <Appear key={sd.id}>
-            <Card>
+            <Card className='h-full'>
               <CardHeader>
                 <CardTitle className='inline-flex items-center justify-between gap-2'>
                   <span
