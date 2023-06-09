@@ -36,7 +36,7 @@ const DashboardData: FC = () => {
   })
 
   const copyToClipboard = async (txt: string) => {
-    const link = `/s/${txt}`
+    const link = `${window.location.origin}/s/${txt}`
     try {
       const clipboardItem = new ClipboardItem({
         "text/plain": new Blob([link], { type: "text/plain" }),
@@ -92,7 +92,11 @@ const DashboardData: FC = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align='end' className=''>
                           <DropdownMenuItem
-                            onClick={() => void push(`/s/${sd.slug}`)}
+                            onClick={() =>
+                              void push(
+                                `${window.location.origin}/s/${sd.slug}`
+                              )
+                            }
                           >
                             Open in new tab
                             <DropdownMenuShortcut>
