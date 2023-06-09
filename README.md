@@ -16,7 +16,7 @@
 - ✅ **Styling**: [TailwindCSS](https://tailwindcss.com) + [Shadcn-ui](https://ui.shadcn.com/).
 - ✅ **Typescript Schema Validation**: [Zod](https://github.com/colinhacks/zod).
 - ✅ **End-to-end typesafe API**: [tRPC](https://trpc.io/).
-- ✅ **Query**: [Tanstack Query](https://tanstack.com/query/latest).
+- ✅ **Data fetching**: [Tanstack Query](https://tanstack.com/query/latest).
 - ✅ **Animation**: [Framer motion](https://www.framer.com/motion/).
 
 
