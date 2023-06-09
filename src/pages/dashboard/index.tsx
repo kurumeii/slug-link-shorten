@@ -2,8 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { type GetServerSideProps, type NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
+import { useDebounce } from "use-debounce"
 import { Icons } from "~/components/icons/Icons"
 import DashboardData from "~/components/slug-data/DashboardData"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
@@ -38,15 +39,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 }
 const DashboardPage: NextPage = () => {
+  const [value, setValue] = useState("")
+  const [query] = useDebounce(value, 500)
   const searchRef = useRef<HTMLInputElement | null>(null)
 
   const form = useForm<FilterLinkInput>({
     resolver: zodResolver(LinkSchemas.filterLink),
     defaultValues: {
-      filter: "",
+      filter: query,
     },
   })
-  const getLink = useGetLink(form.getValues("filter"))
+  const getLink = useGetLink(query)
 
   const onSubmitFn = (data: FilterLinkInput) => {
     console.log(JSON.stringify(data, null, 2))
@@ -105,6 +108,10 @@ const DashboardPage: NextPage = () => {
                           ref={(el) => {
                             field.ref(el)
                             searchRef.current = el
+                          }}
+                          onChange={(ev) => {
+                            field.onChange(ev)
+                            setValue(ev.target.value)
                           }}
                         />
                         <span className='absolute inset-y-0 left-0 flex items-center justify-center pl-3 pr-2'>

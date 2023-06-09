@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { nanoid } from "@reduxjs/toolkit"
 import { type GetServerSideProps, type NextPage } from "next"
 import Head from "next/head"
+import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { Icons } from "~/components/icons/Icons"
 import PaginationHead from "~/components/pagination-head/PaginationHead"
@@ -50,20 +51,23 @@ const CreateNewPage: NextPage = () => {
     },
   })
 
-  const onSubmitFn = (data: CreateLinkInput) => {
-    if (data.slug === data.url) {
-      form.setError("slug", {
-        type: "validate",
-        message: "The URL and the slug cannot be the same",
-      })
-    } else {
-      createSlug.mutate({
-        description: form.getValues("description"),
-        slug: form.getValues("slug"),
-        url: form.getValues("url"),
-      })
-    }
-  }
+  const onSubmitFn = useCallback(
+    (data: CreateLinkInput) => {
+      if (data.slug === data.url) {
+        form.setError("slug", {
+          type: "validate",
+          message: "The URL and the slug cannot be the same",
+        })
+      } else {
+        createSlug.mutate({
+          description: form.getValues("description"),
+          slug: form.getValues("slug"),
+          url: form.getValues("url"),
+        })
+      }
+    },
+    [createSlug, form]
+  )
 
   const randomizeSlug = () => {
     const random = nanoid(10)
