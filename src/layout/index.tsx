@@ -8,11 +8,11 @@ type Props = {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <>
+    <div className='flex h-screen flex-col'>
       <Header />
-      <div className='flex-1'>{children}</div>
+      {children}
       <Footer />
-    </>
+    </div>
   )
 }
 

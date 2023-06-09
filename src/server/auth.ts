@@ -1,7 +1,8 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { type GetServerSidePropsContext } from "next"
 import { getServerSession, type NextAuthOptions } from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import GithubProvider, { type GithubProfile } from "next-auth/providers/github"
+import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google"
 import { env } from "~/env.mjs"
 import { prisma } from "~/server/db"
 
@@ -21,13 +22,33 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
-      profile(profile) {
+      profile(profile: GithubProfile) {
         return {
           id: profile.id.toString(),
           name: profile.name || profile.login,
           username: profile.login,
           email: profile.email,
           image: profile.avatar_url,
+        }
+      },
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+      profile(profile: GoogleProfile) {
+        return {
+          id: profile.sub.toString(),
+          name: profile.name,
+          username: profile.email,
+          email: profile.email,
+          image: profile.picture,
         }
       },
     }),
@@ -43,6 +64,7 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/signin",
+    signOut: "/",
     error: "/signin",
   },
 }

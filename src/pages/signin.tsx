@@ -1,8 +1,9 @@
 import { type GetServerSideProps, type NextPage } from "next"
-import { signIn } from "next-auth/react"
+import { type BuiltInProviderType } from "next-auth/providers"
+import { type LiteralUnion, signIn } from "next-auth/react"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Icons } from "~/components/icons/Icons"
 import { Button } from "~/components/ui/button"
 import { useToast } from "~/components/ui/use-toast"
@@ -25,13 +26,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 const SigninPage: NextPage = () => {
   const [isLoading, setLoading] = useState(false)
-  const { push } = useRouter()
+  const { push, query } = useRouter()
   const { toast } = useToast()
+  const errorMessage = query.error as string
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (provider: LiteralUnion<BuiltInProviderType>) => {
     try {
       setLoading(true)
-      const result = await signIn("github", {
+      const result = await signIn(provider, {
         redirect: false,
       })
       if (result?.error) {
@@ -56,20 +58,45 @@ const SigninPage: NextPage = () => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast({
+        title: "Error",
+        description: errorMessage,
+        variant: "destructive",
+      })
+    }
+  }, [errorMessage, toast])
+
   return (
     <>
       <Head>
         <title>Sign in</title>
       </Head>
-      <div className='container mt-16 flex flex-col items-center justify-center px-4'>
+      <div className='container mt-16 flex flex-col items-center justify-center gap-2 px-4'>
         <h1 className='mb-8 text-4xl'>👋 Welcome</h1>
-        <Button onClick={() => void handleSignIn()} disabled={isLoading}>
+        <Button
+          onClick={() => void handleSignIn("github")}
+          disabled={isLoading}
+        >
           {isLoading ? (
             <Icons.loader className='mr-2 h-5 w-5' />
           ) : (
             <Icons.gitHub className='mr-2 h-5 w-5' />
           )}
           Sign in with GitHub
+        </Button>
+        <Button
+          onClick={() => void handleSignIn("google")}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <Icons.loader className='mr-2 h-5 w-5' />
+          ) : (
+            <Icons.google className='mr-2 h-5 w-5' />
+          )}
+          Sign in with google
         </Button>
       </div>
     </>

@@ -15,9 +15,18 @@ export const dashboardRouter = createTRPCRouter({
                 ? [
                     {
                       OR: [
-                        { url: { contains: input.filter } },
-                        { slug: { contains: input.filter } },
-                        { description: { contains: input.filter } },
+                        {
+                          url: { contains: input.filter, mode: "insensitive" },
+                        },
+                        {
+                          slug: { contains: input.filter, mode: "insensitive" },
+                        },
+                        {
+                          description: {
+                            contains: input.filter,
+                            mode: "insensitive",
+                          },
+                        },
                       ],
                     },
                   ]

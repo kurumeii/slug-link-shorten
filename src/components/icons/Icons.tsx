@@ -1,6 +1,7 @@
 import {
   IconBrandFacebook,
   IconBrandGithub,
+  IconBrandGoogle,
   IconBrandTwitter,
   IconChevronLeft,
   IconChevronRight,
@@ -79,4 +80,5 @@ export const Icons = {
   delete: IconTrash,
   empty: IconMoodSad,
   congratz: PartyPopperIcon,
+  google: IconBrandGoogle,
 }

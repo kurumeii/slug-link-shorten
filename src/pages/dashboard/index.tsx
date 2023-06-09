@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
+import { ScrollArea } from "~/components/ui/scroll-area"
 import useGetLink from "~/hooks/useGetLink"
 import DashboardLayout from "~/layout/dashboard"
 import { cn } from "~/lib/utils"
@@ -51,8 +52,10 @@ const DashboardPage: NextPage = () => {
   })
   const getLink = useGetLink(query)
 
-  const onSubmitFn = (data: FilterLinkInput) => {
-    console.log(JSON.stringify(data, null, 2))
+  const onSubmitFn = async (data: FilterLinkInput) => {
+    await getLink.refetch({
+      queryKey: [data.filter],
+    })
   }
 
   useEffect(() => {
@@ -143,7 +146,7 @@ const DashboardPage: NextPage = () => {
           </Link>
         </div>
         {getLink.isLoading && (
-          <div className='mt-8 flex flex-col items-center justify-center'>
+          <div className='my-8 flex flex-col items-center justify-center'>
             <p className='mb-2'>Loading your links...</p>
             <Icons.loader />
           </div>

@@ -65,7 +65,7 @@ const DashboardData: FC = () => {
 
   return (
     <>
-      <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid grid-cols-1 gap-3 py-2 md:grid-cols-2 lg:grid-cols-3'>
         <AlertDialog
           open={modalStates.delete}
           onOpenChange={(state) => toggleModal({ modalType: "delete", state })}

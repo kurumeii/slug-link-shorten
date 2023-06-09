@@ -1,4 +1,5 @@
 import { type FC, type ReactNode } from "react"
+import { ScrollArea } from "~/components/ui/scroll-area"
 import { Separator } from "~/components/ui/separator"
 
 type Props = {
@@ -13,7 +14,9 @@ const DashboardLayout: FC<Props> = ({ children }) => {
           <h1 className='text-3xl'>Dashboard</h1>
         </div>
         <Separator />
-        <div className='mx-auto px-4'>{children}</div>
+        <ScrollArea className=''>
+          <div className='mx-auto px-4'>{children}</div>
+        </ScrollArea>
       </div>
     </>
   )

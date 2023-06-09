@@ -14,7 +14,6 @@ import { cn } from "~/lib/utils"
 import { store } from "~/store/store"
 import { Toaster } from "../Toaster"
 import Appear from "../framer-motions/Appear"
-import { ScrollArea } from "../ui/scroll-area"
 
 type Props = PropsWithChildren & {
   session?: Session
@@ -30,20 +29,13 @@ const ProviderWrapper: FC<Props> = ({ children, routerKey, session }) => {
           <DefaultSeo {...nextSeoConfig} />
           <Toaster />
           <Analytics />
-          <ScrollArea className='max-w-screen h-screen'>
-            <Layout>
-              <Appear routerKey={routerKey}>
-                <main
-                  className={cn(
-                    nextFonts,
-                    "flex h-full flex-col font-sans antialiased"
-                  )}
-                >
-                  {children}
-                </main>
-              </Appear>
-            </Layout>
-          </ScrollArea>
+          <Layout>
+            <Appear routerKey={routerKey}>
+              <main className={cn(nextFonts, "font-sans antialiased")}>
+                {children}
+              </main>
+            </Appear>
+          </Layout>
         </ThemeProvider>
       </SessionProvider>
     </ReduxProvider>
