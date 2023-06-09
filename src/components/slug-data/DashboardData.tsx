@@ -24,6 +24,13 @@ import Appear from "../framer-motions/Appear"
 import DeleteSlugModal from "../modals/DeleteSlugModal"
 import EditSlugModal from "../modals/EditSlugModal"
 import { useToast } from "../ui/use-toast"
+import { Button } from "../ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip"
 
 const DashboardData: FC = () => {
   const { slugData } = useAppSelector((s) => s.slugs)
@@ -80,12 +87,29 @@ const DashboardData: FC = () => {
                   <CardHeader>
                     <CardTitle className='inline-flex items-center justify-between gap-2'>
                       <span
-                        className='cursor-pointer'
-                        onClick={() => void copyToClipboard(sd.slug)}
+                        className='flex cursor-pointer items-center gap-2'
+                        onClick={() =>
+                          void push(`${window.location.origin}/s/${sd.slug}`)
+                        }
                       >
                         /s/{sd.slug}
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant={"ghost"}
+                                className='h-fit w-fit p-2'
+                                onClick={() => void copyToClipboard(sd.slug)}
+                              >
+                                <Icons.clipboard className='h-5 w-5' />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Click to copy to clipboard</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       </span>
-
                       <DropdownMenu>
                         <DropdownMenuTrigger>
                           <Icons.options />
