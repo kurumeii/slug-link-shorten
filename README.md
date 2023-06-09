@@ -1,28 +1,57 @@
-# Create T3 App
+<div align="center">
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+<a href="https://slug-link-shorten.vercel.app/">
+<img src="./public/img/banner_gh.jpg" />
+</a>
 
-## What's next? How do I make an app with this?
+</div>
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## 📦 Stack used 
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- ✅ **Bootstrapping**: [create-t3-app](https://create.t3.gg).
+- ✅ **Framework**: [Nextjs 13 + Typescript](https://nextjs.org/).
+- ✅ **Auth**: [Next-Auth.js](https://next-auth.js.org)
+- ✅ **ORM**: [Prisma](https://prisma.io).
+- ✅ **Database**: [MongoDB](https://www.mongodb.com/).
+- ✅ **Styling**: [TailwindCSS](https://tailwindcss.com) + [Shadcn-ui](https://ui.shadcn.com/).
+- ✅ **Typescript Schema Validation**: [Zod](https://github.com/colinhacks/zod).
+- ✅ **End-to-end typesafe API**: [tRPC](https://trpc.io/).
+- ✅ **Query**: [Tanstack Query](https://tanstack.com/query/latest).
+- ✅ **Animation**: [Framer motion](https://www.framer.com/motion/).
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
 
-## Learn More
+## 🚀 Getting Started 
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1. Fork this project:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- [Click here](https://github.com/kurumeii/slug-link-shorten/fork).
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+2. Install dependencies:
 
-## How do I deploy this?
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+3. Create a **.env** file with the structure in the file **.env.example**
+
+
+4. Run the cmd
+
+```bash
+# Push your DB to mongodb:
+npx prisma db push
+
+# Run the project:
+npm run dev
+
+# (Optional) Run Prisma Studio to see your DB data:
+npx prisma studio
+```
+
+## 🎉 Deploy on Vercel
+
+✅ https://slug-link-shorten.vercel.app/
