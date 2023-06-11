@@ -58,4 +58,28 @@ export const slugRouter = createTRPCRouter({
         })
       }
     }),
+  getSlug: protectedProcedure
+    .input(LinkSchemas.getSingleLink)
+    .query(async ({ ctx, input }) => {
+      try {
+        const data = await ctx.prisma.link.findUnique({
+          where: {
+            id: input.slugId,
+          },
+        })
+        if (!data)
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Cannot find the data",
+          })
+        return {
+          ...data,
+        }
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: error as string,
+        })
+      }
+    }),
 })

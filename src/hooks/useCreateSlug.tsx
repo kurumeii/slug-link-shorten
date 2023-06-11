@@ -1,12 +1,12 @@
 import { useRouter } from "next/router"
 import { useToast } from "~/components/ui/use-toast"
 import { api } from "~/utils/api"
-import useGetLink from "./useGetLink"
+import useGetAll from "./useGetAll"
 
 export default function useCreateSlug() {
   const { toast } = useToast()
   const { push } = useRouter()
-  const { refetch } = useGetLink("")
+  const { refetch } = useGetAll("")
   return api.slug.createSlug.useMutation({
     onError: () =>
       toast({

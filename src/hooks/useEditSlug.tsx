@@ -1,10 +1,9 @@
 import { useToast } from "~/components/ui/use-toast"
 import { api } from "~/utils/api"
-import useGetLink from "./useGetLink"
 
 export default function useEditSlug() {
   const { toast } = useToast()
-  const { refetch } = useGetLink("")
+  const apiContext = api.useContext()
   return api.slug.editSlug.useMutation({
     onError: (err) =>
       toast({
@@ -18,7 +17,8 @@ export default function useEditSlug() {
         description: "Link has been edited successfully",
         variant: "success",
       })
-      await refetch()
+      await apiContext.slug.invalidate()
+      await apiContext.dashboard.invalidate()
     },
   })
 }

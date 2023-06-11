@@ -1,10 +1,10 @@
 import { useToast } from "~/components/ui/use-toast"
 import { api } from "~/utils/api"
-import useGetLink from "./useGetLink"
+import useGetAll from "./useGetAll"
 
 export default function useDeleteSlug() {
   const { toast } = useToast()
-  const { refetch } = useGetLink("")
+  const { refetch } = useGetAll("")
   return api.slug.deleteSlug.useMutation({
     onError: (err) =>
       toast({

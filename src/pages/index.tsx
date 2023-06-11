@@ -11,12 +11,12 @@ const HomePage: NextPage = () => {
     <>
       <div className='flex flex-col items-center justify-center pb-20 pt-20 transition-all duration-100'>
         <SlideUp>
-          <h1 className='mb-2 text-3xl md:mb-5 md:text-6xl'>
+          <h1 className='m-2 text-center text-3xl md:mb-5 md:text-6xl'>
             Open Source Link Shortener
           </h1>
         </SlideUp>
         <SlideUp delay={0.2}>
-          <h3 className='mb-6 text-2xl text-muted-foreground'>
+          <h3 className='mb-6 text-xl text-muted-foreground md:text-2xl'>
             unlimited links & custom slugs
           </h3>
         </SlideUp>

@@ -1,23 +1,22 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
-import { type RouterOutputs } from "~/utils/api"
 
 type State = {
-  slugData: RouterOutputs["dashboard"]["getAll"]["links"]
+  searchSlug: string
 }
 
 const initialState: State = {
-  slugData: [],
+  searchSlug: "",
 }
 
 const slugSlice = createSlice({
   name: "Slugs",
   initialState,
   reducers: {
-    setSlugData: (state, action: PayloadAction<State>) => {
-      state.slugData = action.payload.slugData
+    setSearchSlug: (state, action: PayloadAction<State>) => {
+      state.searchSlug = action.payload.searchSlug
     },
   },
 })
 
-export const { setSlugData } = slugSlice.actions
+export const { setSearchSlug } = slugSlice.actions
 export default slugSlice.reducer

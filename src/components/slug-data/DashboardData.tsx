@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { useState, type FC } from "react"
-import { useAppSelector } from "~/hooks/useRedux"
 import { Icons } from "../icons/Icons"
 import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog"
 import {
@@ -19,11 +18,11 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 
+import useGetAll from "~/hooks/useGetAll"
 import { type ToggleModal } from "~/types"
 import Appear from "../framer-motions/Appear"
 import DeleteSlugModal from "../modals/DeleteSlugModal"
 import EditSlugModal from "../modals/EditSlugModal"
-import { useToast } from "../ui/use-toast"
 import { Button } from "../ui/button"
 import {
   Tooltip,
@@ -31,9 +30,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip"
+import { useToast } from "../ui/use-toast"
 
 const DashboardData: FC = () => {
-  const { slugData } = useAppSelector((s) => s.slugs)
   const { toast } = useToast()
   const { push } = useRouter()
   const [slugId, setSlugId] = useState("")
@@ -41,7 +40,7 @@ const DashboardData: FC = () => {
     delete: false,
     edit: false,
   })
-
+  const { data } = useGetAll("")
   const copyToClipboard = async (txt: string) => {
     const link = `${window.location.origin}/s/${txt}`
     try {
@@ -64,11 +63,14 @@ const DashboardData: FC = () => {
     })
   }
 
-  const toggleModal: ToggleModal = ({ modalType, state }) =>
+  const toggleModal: ToggleModal = ({ modalType, state }) => {
     setModalStates((prev) => ({
       ...prev,
       [modalType]: state,
     }))
+  }
+
+  const slugData = data && data.links
 
   return (
     <>
@@ -81,7 +83,7 @@ const DashboardData: FC = () => {
             open={modalStates.edit}
             onOpenChange={(state) => toggleModal({ modalType: "edit", state })}
           >
-            {slugData.map((sd) => (
+            {slugData?.map((sd) => (
               <Appear key={sd.id}>
                 <Card className='h-full'>
                   <CardHeader>
@@ -160,11 +162,7 @@ const DashboardData: FC = () => {
                 </Card>
               </Appear>
             ))}
-            <EditSlugModal
-              modalState={modalStates.edit}
-              toggleModal={toggleModal}
-              slugId={slugId}
-            />
+            <EditSlugModal toggleModal={toggleModal} slugId={slugId} />
             <DeleteSlugModal
               modalState={modalStates.delete}
               toggleModal={toggleModal}

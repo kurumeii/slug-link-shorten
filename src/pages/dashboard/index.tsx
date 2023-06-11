@@ -17,12 +17,12 @@ import {
   FormMessage,
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
-import { ScrollArea } from "~/components/ui/scroll-area"
-import useGetLink from "~/hooks/useGetLink"
+import useGetAll from "~/hooks/useGetAll"
 import DashboardLayout from "~/layout/dashboard"
 import { cn } from "~/lib/utils"
 import { LinkSchemas, type FilterLinkInput } from "~/schema/schema"
 import { getServerAuthSession } from "~/server/auth"
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx)
   if (!session) {
@@ -50,7 +50,7 @@ const DashboardPage: NextPage = () => {
       filter: query,
     },
   })
-  const getLink = useGetLink(query)
+  const getLink = useGetAll(query)
 
   const onSubmitFn = async (data: FilterLinkInput) => {
     await getLink.refetch({

@@ -9,13 +9,11 @@ type Props = {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <ScrollArea>
-      <div className='flex h-screen flex-col'>
-        <Header />
-        {children}
-        <Footer />
-      </div>
-    </ScrollArea>
+    <div className='flex h-screen flex-col'>
+      <Header />
+      <ScrollArea className='flex-1'>{children}</ScrollArea>
+      <Footer />
+    </div>
   )
 }
 
