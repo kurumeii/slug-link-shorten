@@ -1,4 +1,5 @@
-import { useEffect, useState, type FC } from "react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import useCustomTheme from "~/hooks/useCustomTheme"
 import { Icons, type MyIcon } from "../icons/Icons"
 import { Button } from "../ui/button"
@@ -11,7 +12,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "../ui/command"
-import { useRouter } from "next/router"
 
 const commandData: Array<{
   title: string
@@ -46,7 +46,7 @@ const commandData: Array<{
   },
 ]
 
-const CommandMenu: FC = () => {
+const CommandMenu = () => {
   const [open, setOpen] = useState(false)
   const { changeTheme } = useCustomTheme()
   const { push } = useRouter()

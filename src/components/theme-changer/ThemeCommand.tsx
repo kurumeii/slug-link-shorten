@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes"
-import { type FC, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { cn } from "~/lib/utils"
-import { type MyIcon, Icons } from "../icons/Icons"
+import { Icons, type MyIcon } from "../icons/Icons"
 import { Button } from "../ui/button"
 import {
   Command,
@@ -34,7 +34,7 @@ const themes: Array<{
   },
 ]
 
-const ThemeCommand: FC = () => {
+const ThemeCommand = () => {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()

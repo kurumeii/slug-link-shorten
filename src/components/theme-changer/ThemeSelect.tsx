@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 
-const ThemeSelect: FC = () => {
+const ThemeSelect = () => {
   const { changeTheme, isSystemDevice, isDarkTheme } = useCustomTheme()
   const [open, setOpen] = useState(false)
   useEffect(() => {

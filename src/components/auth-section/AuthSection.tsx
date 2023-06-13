@@ -1,6 +1,5 @@
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
-import { type FC } from "react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +12,7 @@ import { cn } from "~/lib/utils"
 import { Icons } from "../icons/Icons"
 import { Button, buttonVariants } from "../ui/button"
 
-const AuthSection: FC = () => {
+const AuthSection = () => {
   const { status, data } = useSession()
   return (
     <>

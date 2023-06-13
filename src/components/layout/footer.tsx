@@ -1,9 +1,8 @@
 import Link from "next/link"
-import { type FC } from "react"
 import { Icons } from "../icons/Icons"
 import ThemeSelect from "../theme-changer/ThemeSelect"
 
-const Footer: FC = () => {
+const Footer = () => {
   return (
     <footer className='z-20 flex w-full items-end justify-end px-6 py-3 text-muted-foreground'>
       <div className='container mx-auto flex flex-row-reverse items-center justify-between'>

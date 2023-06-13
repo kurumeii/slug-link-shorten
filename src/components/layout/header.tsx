@@ -1,9 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
-import { type FC } from "react"
 import AuthSection from "../auth-section/AuthSection"
 import CommandMenu from "../command/CommandMenu"
-const Header: FC = () => {
+const Header = () => {
   return (
     <header className='sticky top-0 z-20 w-full px-5 py-4 backdrop-blur-sm transition-all'>
       <div className='container mx-auto flex items-center justify-between px-4 md:px-0'>

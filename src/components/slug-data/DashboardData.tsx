@@ -1,4 +1,4 @@
-import { useState, type FC } from "react"
+import { useState } from "react"
 import { Icons } from "../icons/Icons"
 import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog"
 import {
@@ -31,7 +31,7 @@ import {
 } from "../ui/tooltip"
 import { useToast } from "../ui/use-toast"
 
-const DashboardData: FC = () => {
+const DashboardData = () => {
   const { toast } = useToast()
   const [slugId, setSlugId] = useState("")
   const [modalStates, setModalStates] = useState({
