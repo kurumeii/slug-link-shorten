@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import { useState, type FC } from "react"
 import { Icons } from "../icons/Icons"
 import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog"
@@ -34,7 +33,6 @@ import { useToast } from "../ui/use-toast"
 
 const DashboardData: FC = () => {
   const { toast } = useToast()
-  const { push } = useRouter()
   const [slugId, setSlugId] = useState("")
   const [modalStates, setModalStates] = useState({
     delete: false,
@@ -88,11 +86,10 @@ const DashboardData: FC = () => {
                 <Card className='h-full'>
                   <CardHeader>
                     <CardTitle className='inline-flex items-center justify-between gap-2'>
-                      <span
+                      <a
                         className='flex cursor-pointer items-center gap-2'
-                        onClick={() =>
-                          void push(`${window.location.origin}/s/${sd.slug}`)
-                        }
+                        href={`${window.location.origin}/s/${sd.slug}`}
+                        target='_blank'
                       >
                         /s/{sd.slug}
                         <TooltipProvider>
@@ -111,24 +108,23 @@ const DashboardData: FC = () => {
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
-                      </span>
+                      </a>
                       <DropdownMenu>
                         <DropdownMenuTrigger>
                           <Icons.options />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align='end' className=''>
-                          <DropdownMenuItem
-                            onClick={() =>
-                              void push(
-                                `${window.location.origin}/s/${sd.slug}`
-                              )
-                            }
+                          <a
+                            href={`${window.location.origin}/s/${sd.slug}`}
+                            target='_blank'
                           >
-                            Open in new tab
-                            <DropdownMenuShortcut>
-                              <Icons.external className='ml-2 h-4 w-4' />
-                            </DropdownMenuShortcut>
-                          </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              Open in new tab
+                              <DropdownMenuShortcut>
+                                <Icons.external className='ml-2 h-4 w-4' />
+                              </DropdownMenuShortcut>
+                            </DropdownMenuItem>
+                          </a>
                           <DialogTrigger
                             asChild
                             onClick={() => setSlugId(sd.id)}
