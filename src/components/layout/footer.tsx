@@ -9,8 +9,8 @@ const Footer = () => {
         <div className='flex items-center space-x-1'>
           <ThemeSelect />
         </div>
-        <div className='flex items-center space-x-1 '>
-          <p>⚡ Made by using</p>
+        <div className='hidden items-center space-x-1 md:flex'>
+          <span>⚡ Made by using</span>
           <div className='flex items-center space-x-1'>
             <Link
               href='https://create.t3.gg/'

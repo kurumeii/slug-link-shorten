@@ -44,7 +44,7 @@ const HomePage: NextPage = () => {
               )}
             >
               <Icons.gitHub className='mr-2' />
-              To source code
+              Source code
             </Link>
           </div>
         </SlideUp>

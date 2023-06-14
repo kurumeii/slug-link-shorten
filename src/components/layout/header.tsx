@@ -4,8 +4,8 @@ import AuthSection from "../auth-section/AuthSection"
 import CommandMenu from "../command/CommandMenu"
 const Header = () => {
   return (
-    <header className='sticky top-0 z-20 w-full px-5 py-4 backdrop-blur-sm transition-all'>
-      <div className='container mx-auto flex items-center justify-between px-4 md:px-0'>
+    <header className='sticky top-0 z-20 w-full py-4 backdrop-blur-sm transition-all'>
+      <div className='container mx-auto flex items-center justify-between'>
         <Link href='/'>
           <div className='flex cursor-pointer items-center transition-all'>
             <Image

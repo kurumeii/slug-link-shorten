@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
@@ -35,11 +36,15 @@ const AuthSection = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={"ghost"}>
-              <Icons.hashtag className='mr-2 h-5 w-5' />
-              {data?.user?.username}
+              <Icons.hashtag className='mr-2 hidden h-5 w-5 md:block' />
+              <Icons.userPlaceholder className='h-5 w-5 md:hidden' />
+              <span className='hidden md:block'>{data?.user?.username}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end' className='md:w-40 lg:w-52'>
+            <DropdownMenuLabel className='md:hidden'>
+              Hey, {data?.user?.username ?? data?.user?.email}
+            </DropdownMenuLabel>
             <Link href='/dashboard' passHref legacyBehavior>
               <DropdownMenuItem>
                 Dashboard
