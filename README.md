@@ -55,3 +55,7 @@ npx prisma studio
 ## 🎉 Deploy on Vercel
 
 ✅ https://slug-link-shorten.vercel.app/
+### Preview
+![image](https://github.com/kurumeii/slug-link-shorten/assets/58621726/b460d8b2-f638-4d6e-82c0-8a3c41a75a4a)
+
+![image](https://github.com/kurumeii/slug-link-shorten/assets/58621726/13a0475c-4075-4b41-b231-14bcbe885ca0)
