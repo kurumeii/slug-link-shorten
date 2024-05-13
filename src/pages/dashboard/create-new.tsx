@@ -19,7 +19,7 @@ import {
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
 import useCreateSlug from "~/hooks/useCreateSlug"
-import { LinkSchemas, type CreateLinkInput } from "~/schema/schema"
+import { LinkSchemas, type CreateLinkInput } from "~/configs/schema/schema"
 import { getServerAuthSession } from "~/server/auth"
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

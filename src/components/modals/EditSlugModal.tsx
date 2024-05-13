@@ -1,17 +1,15 @@
 import { type FC } from "react"
 import useGetSlug from "~/hooks/useGetSlug"
-import { type ToggleModal } from "~/types"
+import EditSlugForm from "../form/EditSlugForm"
 import { Icons } from "../icons/Icons"
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
-import EditSlugForm from "../form/EditSlugForm"
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
 
 type Props = {
   slugId: string
-  toggleModal: ToggleModal
 }
 
-const EditSlugModal: FC<Props> = ({ slugId, toggleModal }) => {
+const EditSlugModal: FC<Props> = ({ slugId }) => {
   const { data, isLoading } = useGetSlug(slugId)
   return (
     <>
@@ -34,11 +32,7 @@ const EditSlugModal: FC<Props> = ({ slugId, toggleModal }) => {
           </div>
         ) : (
           <div className='mb-5'>
-            <EditSlugForm
-              data={data}
-              toggleModal={toggleModal}
-              slugId={slugId}
-            />
+            <EditSlugForm slugId={slugId} />
           </div>
         )}
       </DialogContent>

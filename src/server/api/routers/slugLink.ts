@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server"
-import { LinkSchemas } from "~/schema/schema"
+import { LinkSchemas } from "~/configs/schema/schema"
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
 
 export const slugRouter = createTRPCRouter({
@@ -72,9 +72,7 @@ export const slugRouter = createTRPCRouter({
             code: "NOT_FOUND",
             message: "Cannot find the data",
           })
-        return {
-          ...data,
-        }
+        return data
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

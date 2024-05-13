@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server"
-import { LinkSchemas } from "~/schema/schema"
+import { LinkSchemas } from "~/configs/schema/schema"
+
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
 
 export const dashboardRouter = createTRPCRouter({
@@ -45,13 +46,8 @@ export const dashboardRouter = createTRPCRouter({
             code: "NOT_FOUND",
             message: "Can't find anything",
           })
-        return {
-          links,
-        }
+        return links
       } catch (error) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-        })
       }
     }),
 })

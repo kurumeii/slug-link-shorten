@@ -4,7 +4,7 @@ import React from "react"
 import SlideUp from "~/components/framer-motions/SlideUp"
 import { Icons } from "~/components/icons/Icons"
 import { buttonVariants } from "~/components/ui/button"
-import { cn } from "~/lib/utils"
+import { cn } from "~/configs/lib/helpers"
 
 const HomePage: NextPage = () => {
   return (

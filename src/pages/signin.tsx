@@ -1,6 +1,6 @@
 import { type GetServerSideProps, type NextPage } from "next"
 import { type BuiltInProviderType } from "next-auth/providers"
-import { type LiteralUnion, signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -8,6 +8,11 @@ import { Icons } from "~/components/icons/Icons"
 import { Button } from "~/components/ui/button"
 import { useToast } from "~/components/ui/use-toast"
 import { getServerAuthSession } from "~/server/auth"
+
+type InitState = {
+  provider?: BuiltInProviderType
+  status: boolean
+}
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx)
@@ -25,14 +30,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 const SigninPage: NextPage = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState<InitState>({
+    provider: undefined,
+    status: false,
+  })
   const { push, query } = useRouter()
   const { toast } = useToast()
   const errorMessage = query.error as string
 
-  const handleSignIn = async (provider: LiteralUnion<BuiltInProviderType>) => {
+  const handleSignIn = async (provider: BuiltInProviderType) => {
     try {
-      setLoading(true)
+      setLoading({
+        provider,
+        status: true,
+      })
       const result = await signIn(provider, {
         redirect: false,
       })
@@ -55,7 +66,10 @@ const SigninPage: NextPage = () => {
         variant: "destructive",
       })
     } finally {
-      setLoading(false)
+      setLoading({
+        provider: undefined,
+        status: false,
+      })
     }
   }
 
@@ -78,9 +92,9 @@ const SigninPage: NextPage = () => {
         <h1 className='mb-8 text-4xl'>👋 Welcome</h1>
         <Button
           onClick={() => void handleSignIn("github")}
-          disabled={isLoading}
+          disabled={isLoading.provider === "github" && isLoading.status}
         >
-          {isLoading ? (
+          {isLoading.provider === "github" && isLoading.status ? (
             <Icons.loader className='mr-2 h-5 w-5' />
           ) : (
             <Icons.gitHub className='mr-2 h-5 w-5' />
@@ -89,9 +103,9 @@ const SigninPage: NextPage = () => {
         </Button>
         <Button
           onClick={() => void handleSignIn("google")}
-          disabled={isLoading}
+          disabled={isLoading.provider === "google" && isLoading.status}
         >
-          {isLoading ? (
+          {isLoading.provider === "google" && isLoading.status ? (
             <Icons.loader className='mr-2 h-5 w-5' />
           ) : (
             <Icons.google className='mr-2 h-5 w-5' />

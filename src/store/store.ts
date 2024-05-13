@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
-import slugReducer from "~/slices/slugSlice"
+import { dashboardSlice } from "~/slices/dashboard"
+
 export const store = configureStore({
   reducer: {
-    slugs: slugReducer,
+    [dashboardSlice.name]: dashboardSlice.reducer,
   },
 })
 

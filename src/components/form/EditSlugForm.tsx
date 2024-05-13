@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { LinkSchemas, type EditLinkInput } from "~/schema/schema"
+import { LinkSchemas, type EditLinkInput } from "~/configs/schema/schema"
 
 import { type FC } from "react"
 import useEditSlug from "~/hooks/useEditSlug"
-import { type ToggleModal } from "~/types"
-import { type RouterOutputs } from "~/utils/api"
+import useGetSlug from "~/hooks/useGetSlug"
+import { useAppDispatch } from "~/hooks/useRedux"
+import { dashboardSlice } from "~/slices/dashboard"
 import { Icons } from "../icons/Icons"
 import { Button } from "../ui/button"
 import {
@@ -20,18 +21,18 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 
 type EditProps = {
-  data: RouterOutputs["slug"]["getSlug"]
   slugId: string
-  toggleModal: ToggleModal
 }
 
-const EditSlugForm: FC<EditProps> = ({ data, slugId, toggleModal }) => {
+const EditSlugForm: FC<EditProps> = ({ slugId }) => {
   const editSlug = useEditSlug()
+  const { data: dataSlug } = useGetSlug(slugId)
+  const dispatch = useAppDispatch()
   const form = useForm<EditLinkInput>({
     resolver: zodResolver(LinkSchemas.editLink.omit({ slugId: true })),
     defaultValues: {
-      url: data.url,
-      description: data.description ?? "",
+      url: dataSlug?.url,
+      description: dataSlug?.description ?? "",
     },
   })
 
@@ -41,10 +42,12 @@ const EditSlugForm: FC<EditProps> = ({ data, slugId, toggleModal }) => {
       url: data.url,
       description: data.description,
     })
-    toggleModal({
-      modalType: "edit",
-      state: false,
-    })
+    dispatch(
+      dashboardSlice.actions.toggleModal({
+        name: "edit",
+        status: false,
+      })
+    )
   }
   return (
     <Form {...form}>

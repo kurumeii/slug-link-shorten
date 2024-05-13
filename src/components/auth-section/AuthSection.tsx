@@ -9,7 +9,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import { cn } from "~/lib/utils"
+import { cn } from "~/configs/lib/helpers"
 import { Icons } from "../icons/Icons"
 import { Button, buttonVariants } from "../ui/button"
 

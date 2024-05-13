@@ -1,4 +1,4 @@
-import { useEffect, type FC, useState } from "react"
+import { useEffect, useState } from "react"
 import useCustomTheme from "~/hooks/useCustomTheme"
 import { Icons } from "../icons/Icons"
 import { Button } from "../ui/button"

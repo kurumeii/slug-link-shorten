@@ -39,7 +39,7 @@ import {
   UserIcon,
   type Icon as LucideIcon,
 } from "lucide-react"
-import { cn } from "~/lib/utils"
+import { cn } from "~/configs/lib/helpers"
 
 export type MyIcon = LucideIcon & TablerIconsProps
 

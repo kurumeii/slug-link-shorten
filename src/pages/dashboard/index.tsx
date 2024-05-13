@@ -19,8 +19,8 @@ import {
 import { Input } from "~/components/ui/input"
 import useGetAll from "~/hooks/useGetAll"
 import DashboardLayout from "~/layout/dashboard"
-import { cn } from "~/lib/utils"
-import { LinkSchemas, type FilterLinkInput } from "~/schema/schema"
+import { cn } from "~/configs/lib/helpers"
+import { LinkSchemas, type FilterLinkInput } from "~/configs/schema/schema"
 import { getServerAuthSession } from "~/server/auth"
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

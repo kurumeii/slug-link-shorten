@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
-import { cn } from "~/lib/utils"
+import { cn } from "~/configs/lib/helpers"
 import { Icons, type MyIcon } from "../icons/Icons"
 import { Button } from "../ui/button"
 import {

@@ -2,9 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { nanoid } from "@reduxjs/toolkit"
 import { useEffect, useState, type FC } from "react"
 import { useForm } from "react-hook-form"
+import { LinkSchemas, type DeleteSlug } from "~/configs/schema/schema"
 import useDeleteSlug from "~/hooks/useDeleteSlug"
-import { type DeleteSlug, LinkSchemas } from "~/schema/schema"
-import { type ToggleModal } from "~/types"
+import { useAppDispatch } from "~/hooks/useRedux"
+import { dashboardSlice, useDashboardSelector } from "~/slices/dashboard"
 import { Icons } from "../icons/Icons"
 import {
   AlertDialogCancel,
@@ -18,14 +19,14 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form"
 import { Input } from "../ui/input"
 
 type Props = {
-  modalState: boolean
-  toggleModal: ToggleModal
   slugId: string
 }
 
-const DeleteSlugModal: FC<Props> = ({ modalState, toggleModal, slugId }) => {
+const DeleteSlugModal: FC<Props> = ({ slugId }) => {
   const [random, setRandom] = useState("")
   const deleteSlug = useDeleteSlug()
+  const { modalStates } = useDashboardSelector()
+  const dispatch = useAppDispatch()
   const form = useForm<DeleteSlug>({
     resolver: zodResolver(LinkSchemas.deleteSlug),
     defaultValues: {
@@ -35,12 +36,13 @@ const DeleteSlugModal: FC<Props> = ({ modalState, toggleModal, slugId }) => {
   useEffect(() => {
     const randomize = nanoid(5)
     setRandom(randomize)
-  }, [modalState])
+  }, [modalStates.delete])
 
   useEffect(() => {
-    form.clearErrors("slug")
-    form.setValue("slug", "")
-  }, [form, modalState])
+    if (modalStates.delete) {
+      form.reset()
+    }
+  }, [form, modalStates.delete])
 
   const onSubmitFn = (data: DeleteSlug) => {
     if (data.slug !== random) {
@@ -49,7 +51,12 @@ const DeleteSlugModal: FC<Props> = ({ modalState, toggleModal, slugId }) => {
         type: "validate",
       })
     } else {
-      toggleModal({ modalType: "delete", state: false })
+      dispatch(
+        dashboardSlice.actions.toggleModal({
+          name: "delete",
+          status: false,
+        })
+      )
       deleteSlug.mutate({
         slugId,
       })

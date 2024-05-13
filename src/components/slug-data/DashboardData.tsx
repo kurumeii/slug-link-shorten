@@ -18,7 +18,6 @@ import {
 } from "../ui/dropdown-menu"
 
 import useGetAll from "~/hooks/useGetAll"
-import { type ToggleModal } from "~/types"
 import Appear from "../framer-motions/Appear"
 import DeleteSlugModal from "../modals/DeleteSlugModal"
 import EditSlugModal from "../modals/EditSlugModal"
@@ -30,15 +29,15 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip"
 import { useToast } from "../ui/use-toast"
+import { dashboardSlice, useDashboardSelector } from "~/slices/dashboard"
+import { useAppDispatch } from "~/hooks/useRedux"
 
 const DashboardData = () => {
   const { toast } = useToast()
   const [slugId, setSlugId] = useState("")
-  const [modalStates, setModalStates] = useState({
-    delete: false,
-    edit: false,
-  })
-  const { data } = useGetAll("")
+  const dispatch = useAppDispatch()
+  const { modalStates } = useDashboardSelector()
+  const { data: slugData } = useGetAll("")
   const copyToClipboard = async (txt: string) => {
     const link = `${window.location.origin}/s/${txt}`
     try {
@@ -61,25 +60,30 @@ const DashboardData = () => {
     })
   }
 
-  const toggleModal: ToggleModal = ({ modalType, state }) => {
-    setModalStates((prev) => ({
-      ...prev,
-      [modalType]: state,
-    }))
-  }
-
-  const slugData = data && data.links
-
   return (
     <>
       <div className='grid grid-cols-1 gap-3 py-2 md:grid-cols-2 lg:grid-cols-3'>
         <AlertDialog
           open={modalStates.delete}
-          onOpenChange={(state) => toggleModal({ modalType: "delete", state })}
+          onOpenChange={(state) => {
+            dispatch(
+              dashboardSlice.actions.toggleModal({
+                name: "delete",
+                status: state,
+              })
+            )
+          }}
         >
           <Dialog
             open={modalStates.edit}
-            onOpenChange={(state) => toggleModal({ modalType: "edit", state })}
+            onOpenChange={(state) => {
+              dispatch(
+                dashboardSlice.actions.toggleModal({
+                  name: "edit",
+                  status: state,
+                })
+              )
+            }}
           >
             {slugData?.map((sd) => (
               <Appear key={sd.id}>
@@ -158,12 +162,8 @@ const DashboardData = () => {
                 </Card>
               </Appear>
             ))}
-            <EditSlugModal toggleModal={toggleModal} slugId={slugId} />
-            <DeleteSlugModal
-              modalState={modalStates.delete}
-              toggleModal={toggleModal}
-              slugId={slugId}
-            />
+            <EditSlugModal slugId={slugId} />
+            <DeleteSlugModal slugId={slugId} />
           </Dialog>
         </AlertDialog>
       </div>
